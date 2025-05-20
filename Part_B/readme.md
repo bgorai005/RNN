@@ -1,5 +1,5 @@
 
-# Bengali Transliteration without Attention Mechanism
+# Bengali Transliteration with Attention Mechanism
 
 This project implements a character-level Seq2Seq model for transliterating words from Latin script (English) to Bengali script using the Dakshina dataset. The model is trained **without an attention mechanism** and optimized using a hyperparameter sweep with **Weights & Biases (Wandb)**.
 
@@ -20,13 +20,7 @@ This project implements a character-level Seq2Seq model for transliterating word
 
 ```
 without_attention/
-├── train_loader.py           # Script to run Wandb sweep
-├── train_evaluate.py         # Train & evaluate with best hyperparameters
-├── test_evaluator.py         # Final evaluation and prediction generation
-├── predictions_vanilla/      # Saved predictions (TSV)
-├── best_model.pt             # Saved model checkpoint
-└── README.md                 # This documentation
-```
+
 
 ---
 
@@ -48,6 +42,7 @@ without_attention/
 ---
 
 ## 🧠 Model Architecture
+### Attention Class
 
 ### 🔹 Encoder
 - Input: Latin character sequence
@@ -110,7 +105,7 @@ without_attention/
 
 ### 📈 Observations
 
-- **GRU** consistently outperformed other RNN cells
+- **LSTM** consistently outperformed other RNN cells
 - **RNN** often failed (<5% accuracy)
 - Best batch sizes: **32 or 64**
 - Optimal dropout: **0.2–0.4**
@@ -125,17 +120,17 @@ From `train_evaluate.py`:
 
 ```python
 config = {
-    'emb_dim': 128,
+    'emb_dim': 64,
     'hidden_dim': 256,
     'enc_layers': 2,
     'dec_layers': 3,
-    'cell_type': 'GRU',
+    'cell_type': 'LSTM',
     'dropout': 0.4,
     'batch_size': 64,
     'learning_rate': 0.0005,
-    'teacher_forcing': 0.7,
-    'beam_size': 1,
-    'epochs': 10,
+    'teacher_forcing': 0.9,
+    'beam_size': 3,
+    'epochs': 15,
     'patience': 3
 }
 ```
@@ -151,30 +146,14 @@ config = {
 - Metrics logged to **Wandb**:
   - `train_loss`, `val_loss`
   - `token_accuracy`, `sequence_accuracy`
+-The model is trained using the Adam optimizer with a cross-entropy loss function. During training, the model learns to minimize the difference between the predicted translations and the ground truth translations in the training set.
+
 
 ---
 
 ## 🧾 Evaluation
 
-- **Script**: `test_evaluator.py`
-- Loads best model and evaluates on the test set
-- Predictions saved to: `predictions_vanilla/predictions.tsv`
-- Displays **35 random samples** with color-coded backgrounds:
-  - ✅ Correct: Green (`#90EE90`)
-  - ❌ Incorrect: Pink (`#FFB6C1`)
-
----
-
-## 🎯 Results
-
-| Metric              | Value (approx.) |
-|---------------------|-----------------|
-| Val Sequence Accuracy | ~40–50%         |
-| Test Sequence Accuracy | ~35–45%         |
-
-### 🔍 Observations
-- Struggles with complex vowel signs and conjuncts
-- Performance limited by **lack of attention mechanism**
+After training, the model is evaluated on the test set to assess its performance on unseen data. The test accuracy and loss are reported to measure the effectiveness of the model.
 
 ---
 
@@ -197,10 +176,6 @@ config = {
 
 ---
 
-## ⚠️ Limitations
-
-- No attention → performance drop on longer sequences
-- Cannot learn fine-grained alignments (e.g., vowel diacritics, conjunct clusters)
 
 ---
 
@@ -208,4 +183,5 @@ config = {
 
 - `best_model.pt`: Trained model checkpoint
 - `predictions.tsv`: Full test predictions
+- `heatmap.png`: First 9 sample of heat map
 - 35 highlighted samples for qualitative evaluation
