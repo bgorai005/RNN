@@ -18,14 +18,7 @@ This project implements a character-level Seq2Seq model for transliterating word
 ##  Project Structure
 
 ```
-without_attention/
-├── train_loader.py           # Script to run Wandb sweep
-├── train_evaluate.py         # Train & evaluate with best hyperparameters
-├── test_evaluator.py         # Final evaluation and prediction generation
-├── predictions_vanilla/      # Saved predictions (TSV)
-├── best_model.pt             # Saved model checkpoint
-└── README.md                 # This documentation
-```
+without_attention
 
 ---
 
@@ -177,15 +170,8 @@ config = {
 
 1. **Create Kaggle notebook**
 2. **Install dependencies and login to Wandb**
-3. **Run sweep**:
-   run the corresponding cell in the note bbok 
-4. **Train & evaluate best config**:
-  
-   ```
-5. **Evaluate on test set**:
-   ```bash
-   python test_evaluator.py
-   ```
+3. ** Finding best hyperparamter run upto first config after that find best hyperparamter from wandb and train train again with these hyperparameter and test and get the output
+   ``` Run the coressponding cell 
 
 ## 📂 Output
 
