@@ -4,7 +4,7 @@ This project implements a character-level Seq2Seq model for transliterating word
 
 ---
 
-## 🔧 Overview
+##  Overview
 
 - **Dataset**: Dakshina (Bengali)
 - **Task**: Transliteration (Latin → Bengali)
@@ -15,7 +15,7 @@ This project implements a character-level Seq2Seq model for transliterating word
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 without_attention/
@@ -29,7 +29,7 @@ without_attention/
 
 ---
 
-## 📦 Dataset
+##  Dataset
 
 **Path on Kaggle**:  
 `/kaggle/input/dakshina/dakshina_dataset_v1.0/bn/lexicons/`
@@ -46,7 +46,7 @@ without_attention/
 
 ---
 
-## 🧠 Model Architecture
+##  Model Architecture
 
 ### 🔹 Encoder
 - Input: Latin character sequence
@@ -68,7 +68,7 @@ without_attention/
 
 ## ⚙️ Setup
 
-### ✅ Prerequisites
+###  Prerequisites
 
 - Environment: Kaggle notebook with GPU
 - Install:
@@ -85,9 +85,9 @@ without_attention/
 
 ---
 
-## 🧪 Hyperparameter Sweep
+##  Hyperparameter Sweep
 
-### 🔍 Method: Bayesian Optimization (`method: 'bayes'`)
+###  Method: Bayesian Optimization (`method: 'bayes'`)
 
 **Sweep Search Space (defined in `train_loader.py`):**
 ```python
@@ -107,7 +107,7 @@ without_attention/
 }
 ```
 
-### 📈 Observations
+###  Observations
 
 - **GRU** consistently outperformed other RNN cells
 - **RNN** often failed (<5% accuracy)
@@ -118,7 +118,7 @@ without_attention/
 
 ---
 
-## 🏆 Best Hyperparameters
+##  Best Hyperparameters
 
 From `train_evaluate.py`:
 
@@ -141,7 +141,7 @@ config = {
 
 ---
 
-## 🏋️ Training
+##  Training
 
 - **Script**: `train_evaluate.py`
 - **Trainer class** handles model training and validation
@@ -153,27 +153,23 @@ config = {
 
 ---
 
-## 🧾 Evaluation
+##  Evaluation
 
 - **Script**: `test_evaluator.py`
 - Loads best model and evaluates on the test set
 - Predictions saved to: `predictions_vanilla/predictions.tsv`
 - Displays **35 random samples** with color-coded backgrounds:
-  - ✅ Correct: Green (`#90EE90`)
-  - ❌ Incorrect: Pink (`#FFB6C1`)
+ 
 
 ---
 
-## 🎯 Results
+##  Results
 
 | Metric              | Value (approx.) |
 |---------------------|-----------------|
-| Val Sequence Accuracy | ~40–50%         |
-| Test Sequence Accuracy | ~35–45%         |
+| Val Sequence Accuracy |  30-35%       |
+| Test Sequence Accuracy | 35%       |
 
-### 🔍 Observations
-- Struggles with complex vowel signs and conjuncts
-- Performance limited by **lack of attention mechanism**
 
 ---
 
@@ -182,26 +178,14 @@ config = {
 1. **Create Kaggle notebook**
 2. **Install dependencies and login to Wandb**
 3. **Run sweep**:
-   ```bash
-   python train_loader.py
-   ```
+   run the corresponding cell in the note bbok 
 4. **Train & evaluate best config**:
-   ```bash
-   python train_evaluate.py
+  
    ```
 5. **Evaluate on test set**:
    ```bash
    python test_evaluator.py
    ```
-
----
-
-## ⚠️ Limitations
-
-- No attention → performance drop on longer sequences
-- Cannot learn fine-grained alignments (e.g., vowel diacritics, conjunct clusters)
-
----
 
 ## 📂 Output
 
