@@ -162,17 +162,7 @@ After training, the model is evaluated on the test set to assess its performance
 1. **Create Kaggle notebook**
 2. **Install dependencies and login to Wandb**
 3. **Run sweep**:
-   ```bash
-   python train_loader.py
-   ```
-4. **Train & evaluate best config**:
-   ```bash
-   python train_evaluate.py
-   ```
-5. **Evaluate on test set**:
-   ```bash
-   python test_evaluator.py
-   ```
+   for run yoou follow the note book markdown cells
 
 ---
 
