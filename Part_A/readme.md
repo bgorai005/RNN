@@ -99,21 +99,13 @@ without_attention
   epochs: [10, 15]
 }
 ```
+### Training
+  For training, a sweep was generated using the above configuration. A dedicated `Train` class is provided, which includes all functions for training and evaluation. Additionally, a `train_loader` function is implemented to handle the sweep execution.
 
-###  Observations
 
-- **GRU** consistently outperformed other RNN cells
-- **RNN** often failed (<5% accuracy)
-- Best batch sizes: **32 or 64**
-- Optimal dropout: **0.2–0.4**
-- **Beam size = 1** worked best (greedy decoding)
-- Teacher Forcing: **0.5–0.9** was effective
-
----
 
 ##  Best Hyperparameters
 
-From `train_evaluate.py`:
 
 ```python
 config = {
@@ -134,25 +126,11 @@ config = {
 
 ---
 
-##  Training
+##  Test evaluator
+A `TestEvaluator` class is also defined, containing functions such as `compute_sequence_prediction` and `generate_sample` for evaluating the model. Following this, a `test_loader` function is implemented to handle evaluation with the best hyperparameters from the sweep — it retrains the model using these parameters, evaluates it on the test set, and returns both the prediction file and the final trained model.
 
-- **Script**: `train_evaluate.py`
-- **Trainer class** handles model training and validation
-- **Early stopping** with patience = 3
-- Model saved to: `/kaggle/working/best_model.pt`
-- Metrics logged to **Wandb**:
-  - `train_loss`, `val_loss`
-  - `token_accuracy`, `sequence_accuracy`
 
 ---
-
-##  Evaluation
-
-- **Script**: `test_evaluator.py`
-- Loads best model and evaluates on the test set
-- Predictions saved to: `predictions_vanilla/predictions.tsv`
-- Displays **35 random samples** with color-coded backgrounds:
- 
 
 ---
 
@@ -177,4 +155,3 @@ config = {
 
 - `best_model.pt`: Trained model checkpoint
 - `predictions.tsv`: Full test predictions
-- 35 highlighted samples for qualitative evaluation
