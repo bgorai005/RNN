@@ -138,8 +138,8 @@ A `TestEvaluator` class is also defined, containing functions such as `compute_s
 
 | Metric              | Value (approx.) |
 |---------------------|-----------------|
-| Val Sequence Accuracy |  30-35%       |
-| Test Sequence Accuracy | 35%       |
+| Val Sequence Accuracy |  37.31%      |
+| Test Sequence Accuracy | 35.59%       |
 
 
 ---
