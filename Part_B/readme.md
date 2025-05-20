@@ -24,7 +24,7 @@ without_attention/
 
 ---
 
-## 📦 Dataset
+##  Dataset
 
 **Path on Kaggle**:  
 `/kaggle/input/dakshina/dakshina_dataset_v1.0/bn/lexicons/`
@@ -41,7 +41,7 @@ without_attention/
 
 ---
 
-## 🧠 Model Architecture
+## Model Architecture
 ### Attention Class
 
 ### 🔹 Encoder
@@ -64,7 +64,7 @@ without_attention/
 
 ## ⚙️ Setup
 
-### ✅ Prerequisites
+###  Prerequisites
 
 - Environment: Kaggle notebook with GPU
 - Install:
@@ -81,9 +81,9 @@ without_attention/
 
 ---
 
-## 🧪 Hyperparameter Sweep
+##  Hyperparameter Sweep
 
-### 🔍 Method: Bayesian Optimization (`method: 'bayes'`)
+###  Method: Bayesian Optimization (`method: 'bayes'`)
 
 **Sweep Search Space (defined in `train_loader.py`):**
 ```python
@@ -103,20 +103,12 @@ without_attention/
 }
 ```
 
-### 📈 Observations
-
-- **LSTM** consistently outperformed other RNN cells
-- **RNN** often failed (<5% accuracy)
-- Best batch sizes: **32 or 64**
-- Optimal dropout: **0.2–0.4**
-- **Beam size = 1** worked best (greedy decoding)
-- Teacher Forcing: **0.5–0.9** was effective
+### Observations
 
 ---
 
-## 🏆 Best Hyperparameters
+## Best Hyperparameters
 
-From `train_evaluate.py`:
 
 ```python
 config = {
@@ -137,32 +129,26 @@ config = {
 
 ---
 
-## 🏋️ Training
+## Training
+For training i have a class train which incude necassry function for train the mode and a train loader fuction. For run this follow the the markdown cells. 
 
-- **Script**: `train_evaluate.py`
-- **Trainer class** handles model training and validation
-- **Early stopping** with patience = 3
-- Model saved to: `/kaggle/working/best_model.pt`
-- Metrics logged to **Wandb**:
-  - `train_loss`, `val_loss`
-  - `token_accuracy`, `sequence_accuracy`
 -The model is trained using the Adam optimizer with a cross-entropy loss function. During training, the model learns to minimize the difference between the predicted translations and the ground truth translations in the training set.
 
 
 ---
 
-## 🧾 Evaluation
+## Evaluation
+After training with the best hyperparameters, the model is evaluated on the test set using the `TestEvaluator` class. This module includes functionality to compute predictions and generate visualizations such as heatmaps. The `test_loader` function is used to load the test data, and it returns both the prediction file and the final trained model. Test accuracy and loss are also reported to assess the model's performance on unseen data.
 
-After training, the model is evaluated on the test set to assess its performance on unseen data. The test accuracy and loss are reported to measure the effectiveness of the model.
 
 ---
 
-## 📌 How to Use
+## How to Use
 
 1. **Create Kaggle notebook**
 2. **Install dependencies and login to Wandb**
 3. **Run sweep**:
-   for run yoou follow the note book markdown cells
+   for run yoou follow the note book markdown cells.
 
 ---
 
